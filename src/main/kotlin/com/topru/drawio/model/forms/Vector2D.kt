@@ -1,8 +1,9 @@
-package com.topru.drawio.model.draw
+package com.topru.drawio.model.forms
 
 import java.awt.geom.Point2D
 
 class Vector2D(x: kotlin.Double = .0, y: kotlin.Double = .0) : Point2D.Double(x,y) {
+
     operator fun plus(increment: Vector2D) : Vector2D {
         return Vector2D(x+increment.x, y+increment.y)
     }

@@ -1,26 +1,24 @@
 package com.topru.drawio.control
 
+import com.topru.drawio.model.forms.Vector2D
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 
-class MouseControl() : MouseAdapter() {
+object MouseControl : MouseAdapter() {
+    var mouseClicked: Boolean = false
+    var mousePosition: Vector2D = Vector2D()
 
-    private val subscribers = mutableListOf<(MouseEvent) -> Unit>()
-
-    fun subscribe(onClick: (MouseEvent) -> Unit) {
-        subscribers.add(onClick)
-    }
 
     override fun mouseReleased(e: MouseEvent) {
-        for (ob in subscribers) {
-            ob.invoke(e)
-        }
+        mouseClicked = false
+    }
+
+    override fun mousePressed(e: MouseEvent) {
+        mousePosition = Vector2D(e.x.toDouble(), e.y.toDouble())
+        mouseClicked = true
     }
 
     override fun mouseDragged(e: MouseEvent) {
-        for (ob in subscribers) {
-            ob.invoke(e)
-        }
+        mousePosition = Vector2D(e.x.toDouble(), e.y.toDouble())
     }
-
 }
